@@ -27,6 +27,21 @@ export default {
             title: 'Small Description',
         },
         {
+            name: 'tags',
+            type: 'string',
+            title: 'Tags',
+        },
+        {
+            name: 'author',
+            type: 'string',
+            title: 'Author',
+        },
+        {
+            name: 'authorImage',
+            type: 'image',
+            title: 'Author Image',
+        },
+        {
             name: 'content',
             type: 'array',
             title: 'Content',

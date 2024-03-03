@@ -3,6 +3,10 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./components/theme-provider";
 import Navbar from "./components/Navbar";
+import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu"
+
+
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,6 +30,8 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <Navbar/>
+        
+    
         <main className="max-w-5xl mx-auto px-4">{children}</main>
       </ThemeProvider>
         </body>
