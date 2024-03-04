@@ -51,7 +51,7 @@ async function getAdvert() {
 
 
 
-export default async function Home({ initialIndex = 0, buttonsToDisplay = 8 }) {
+export default async function Home() {
     const data: simpleBlogCard[] = await getData();
     const advertdata: advertType[] = await getAdvert();
 
@@ -60,9 +60,6 @@ export default async function Home({ initialIndex = 0, buttonsToDisplay = 8 }) {
     // const footerAdverts = advertdata.filter(ad => ad.adposition === 'footer');
 
     const featuredPosts = data.filter(post => post.featured);
-
-    const firstIndex = initialIndex;
-    const lastIndex = Math.min(firstIndex + buttonsToDisplay - 1, data.length - 1); // Ensure last index doesn't exceed data length
 
     return (
         <>
