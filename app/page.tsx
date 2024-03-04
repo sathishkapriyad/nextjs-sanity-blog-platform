@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { badgeVariants } from "@/components/ui/badge"
 import { ArrowBigRight, ArrowRight, Space } from "lucide-react";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 export const revalidate = 30; // revalidate at most 30 seconds
 
@@ -50,7 +51,7 @@ async function getAdvert() {
 
 
 
-export default async function Home() {
+export default async function Home({ initialIndex = 0, buttonsToDisplay = 8 }) {
     const data: simpleBlogCard[] = await getData();
     const advertdata: advertType[] = await getAdvert();
 
@@ -60,7 +61,8 @@ export default async function Home() {
 
     const featuredPosts = data.filter(post => post.featured);
 
-
+    const firstIndex = initialIndex;
+    const lastIndex = Math.min(firstIndex + buttonsToDisplay - 1, data.length - 1); // Ensure last index doesn't exceed data length
 
     return (
         <>
@@ -81,7 +83,6 @@ export default async function Home() {
 
             </div> */}
 
-
             <div className="my-12 grid grid-cols-1 md:grid-cols-4 gap-4">
                 {featuredPosts.map((post, idx) => (
                     // Check if it's the first post, which is the featured post
@@ -101,9 +102,9 @@ export default async function Home() {
                             </Link>
                             <div className="mt-4 flex-1 text-right">
                                 {post.tags.map((tag, tagIdx) => (
-                                   <Link key={tagIdx} href={`/tags/${tag}`} passHref>
-                                   <span className={`${badgeVariants({ variant: "outline" })} mx-2 my-1 cursor-pointer inline-block`}>{tag}</span>
-                               </Link>
+                                    <Link key={tagIdx} href={`/tags/${tag}`} passHref>
+                                        <span className={`${badgeVariants({ variant: "outline" })} mx-2 my-1 cursor-pointer inline-block`}>{tag}</span>
+                                    </Link>
                                 ))}
                             </div>
                         </CardContent>
@@ -111,42 +112,70 @@ export default async function Home() {
                 ))}
             </div>
 
+            <div className="w-full">
+                <h3 className="text-lg  text-gray-800 mt-8 mb-5 dark:text-gray-300">More topics</h3>
+
+                <Carousel className="w-full ">
+                    <CarouselContent className="-ml-1">
+                        {data.map((post, idx) => (
+                            <CarouselItem key={idx} className="pl-1 md:basis-1/2 lg:basis-1/6">
+                                <div className="p-1">
+                                    <Card>
+                                        <CardContent className="flex aspect-square items-center justify-center p-6">
+                                            {post.categories && post.categories.length > 0 ? (
+                                                <span className="text-md font-semibold">
+                                                    {post.categories[0].title}
+                                                </span>
+                                            ) : (
+                                                <span className="text-md font-semibold">No Category</span>
+                                            )}
+
+                                        </CardContent>
+                                    </Card>
+                                </div>
+                            </CarouselItem>
+                        ))}
+                    </CarouselContent>
+                    <CarouselPrevious />
+                    <CarouselNext />
+                </Carousel>
+            </div>
 
 
             <div className="grid grid-cols-1 md:grid-cols-3 mt-5 gap-5">
 
                 {data.map((post, idx) => (
                     <Card key={idx} className="flex flex-col md:flex-row">
-                    <Image
-                        src={urlFor(post.titleImage).url()}
-                        alt="image"
-                        width={500}
-                        height={500}
-                        className="rounded-t-lg h-[200px] object-contain md:w-1/2"
-                    />
+                        <Image
+                            src={urlFor(post.titleImage).url()}
+                            alt="image"
+                            width={500}
+                            height={500}
+                            className="rounded-t-lg h-[200px] object-contain md:w-1/2"
+                        />
 
-                    <CardContent className="mt-5 flex-1 md:w-1/2 px-4 py-2">
-                        <h3 className="text-lg line-clamp-2 font-bold">{post.title}</h3>
-                        <p className="line-clamp-3 text-sm mt-2 text-gray-600 dark:text-gray-300">
-                        {post.smallDescription}
-                        </p>
-                        <Link href={`/blog/${post.currentSlug}`} className="flex items-center mt-4 text-sm font-semibold">
-                        Read More <ArrowRight className="h-5 w-6" />
-                        </Link>
-                        <div className="flex-1 text-right"> {/* Align tags to right */}
-                        {Array.isArray(post.tags) ? (
-                            post.tags.map((tag, tagIdx) => (
-                            <Link key={tagIdx} href={`/tags/${tag}`} className={`${badgeVariants({ variant: "outline" })} mx-2 my-1 cursor-pointer`}>
-                                {tag}
+                        <CardContent className="mt-5 flex-1 md:w-1/2 px-4 py-2">
+                            <h3 className="text-lg line-clamp-2 font-bold">{post.title}</h3>
+                            <p className="line-clamp-3 text-sm mt-2 text-gray-600 dark:text-gray-300">
+                                {post.smallDescription}
+                            </p>
+                            <Link href={`/blog/${post.currentSlug}`} className="flex items-center mt-4 text-sm font-semibold">
+                                Read More <ArrowRight className="h-5 w-6" />
                             </Link>
-                            ))
-                        ) : post.tags ? (
-                            <Link href={`/tags/${post.tags}`} className={`${badgeVariants({ variant: "outline" })} mx-2 my-1 cursor-pointer`}>
-                            {post.tags}
-                            </Link>
-                        ) : null}
-                        </div>
-                    </CardContent>
+                            <div className="flex-1 text-right"> {/* Align tags to right */}
+                                {Array.isArray(post.tags) ? (
+                                    post.tags.map((tag, tagIdx) => (
+                                        <Link key={tagIdx} href={`/tags/${tag}`} className={`${badgeVariants({ variant: "outline" })} mx-2 my-1 cursor-pointer`}>
+                                            {tag}
+                                        </Link>
+                                    ))
+                                ) : post.tags ? (
+                                    <Link href={`/tags/${post.tags}`} className={`${badgeVariants({ variant: "outline" })} mx-2 my-1 cursor-pointer`}>
+                                        {post.tags}
+                                    </Link>
+                                ) : null}
+                            </div>
+                        </CardContent>
                     </Card>
                 ))}
             </div>

@@ -50,6 +50,13 @@
   }
 }
 
+.button-container {
+  display: flex; /* Enable flexbox layout */
+  flex-direction: row;
+  flex-wrap: wrap; /* Wrap items onto new lines when necessary */
+  width: 100%; /* Stretch container to fill available space */
+}
+
  
 @layer base {
   * {
