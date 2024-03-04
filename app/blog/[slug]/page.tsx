@@ -1,3 +1,4 @@
+import { BlogPost } from "@/app/lib/interface";
 import { client, urlFor } from "@/app/lib/sanity";
 import { PortableText } from "@portabletext/react";
 import Image from "next/image";
@@ -31,7 +32,7 @@ export default async function BlogArticle({
 }: {
   params: { slug: string };
 }) {
-  const data: fullBlog = await getData(params.slug);
+  const data: BlogPost = await getData(params.slug);
 
   return (
     <div className="mt-8 w-full max-w-4xl mx-auto px-4 py-5 pb-8">
