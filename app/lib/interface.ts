@@ -14,6 +14,7 @@
 
 // lib/interface.ts
 export interface BlogPost {
+  content: any;
   title: string;
   smallDescription: string;
   currentSlug: string;
