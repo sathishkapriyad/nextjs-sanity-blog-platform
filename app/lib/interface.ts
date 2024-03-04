@@ -1,27 +1,33 @@
-export interface simpleBlogCard {
-    title: string;
-    smallDescription: string;
-    currentSlug: string;
-    titleImage: any;
-    tags: string;
-    author: string;
-    authorImage: any;
-  }
-
-  export interface fullBlog {
-    currentSlug: string;
-    title: string;
+  export interface simpleBlogCard {
     content: any;
-    titleImage: any;
-    tags: string;
-    author: string;
-    authorImage: any;
+    title: string;
     smallDescription: string;
+    currentSlug: string;
+    titleImage: any; // You might want to create a more specific type for image
+    tags: string[];
+    author: string;
+    authorImage: any; // You might want to create a more specific type for image
+    publishedAt: string;
+    categories: any[]; // You might want to create a more specific type for categories
+    featured: boolean;
   }
 
-  // interface.ts
+// lib/interface.ts
+export interface BlogPost {
+  title: string;
+  smallDescription: string;
+  currentSlug: string;
+  titleImage: { asset: { _ref: string } }; // Adjust according to your Sanity image structure
+  tags: string[];
+  author: string;
+  authorImage: { asset: { _ref: string } }; // Adjust according to your Sanity image structure
+  publishedAt: string;
+  categories: { title: string }[];
+  featured: boolean;
+}
+
 export interface advertType {
   adtitle: string;
   adposition: string;
-  adImage: any;
+  adImage: { asset: { _ref: string } }; // Adjust according to your Sanity image structure
 }

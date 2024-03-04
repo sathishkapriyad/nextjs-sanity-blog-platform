@@ -23,6 +23,9 @@ async function getDataByTags(tags: string) {
           tags,
           author,
           authorImage,
+          publishedAt,
+          categories,
+          featured,
       }`;
 
     const data = await client.fetch(query);

@@ -1,26 +1,29 @@
 import Link from "next/link";
 import { ModeToggle } from "./ModeToggle";
-import { BeakerIcon } from '@heroicons/react/24/solid'
-import { CoffeeIcon } from "lucide-react";
-import { Input } from "@/components/ui/input"
-
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'; // Assuming you have this icon
+import { Input } from "@/components/ui/input";
 
 export default function Navbar() {
-    return (
-        <nav className="w-full relative flex items-center justify-between max-w-5xl mx-auto px-4 py-5 pb-8">
-           <Link href="/" className="font-bold text-3xl">
-           <span className="uppercase whitespace-normal">Byte</span><span className="text-primary uppercase">Bridges</span>
-                <p className="text-sm">Connecting Ideas in the Digital Realm</p>
-           </Link>
-           {/* <Link href="/about" >
-                <p className="text-md font-semibold text-left">About</p>
-           </Link> */}
-        
-           <Link href="/" className="grid w-full max-w-xl items-center">
-           <Input placeholder="Find your byte..."/>
-           </Link>
-           <ModeToggle/>
-        </nav>
-
-    );
+  return (
+    <nav className="sticky top-0 z-50 w-full flex items-center justify-between px-4 py-5 bg-white shadow-md">
+      <div className="flex items-center">
+       {/* Your logo icon */}
+        <Link href="/" passHref>
+          <span className="ml-3 font-bold text-2xl cursor-pointer">
+            <span className="uppercase">Byte</span>
+            <span className="text-primary uppercase">Bridges</span>
+          </span>
+        </Link>
+      </div>
+      <div className="flex-grow px-4 max-w-2xl">
+        <div className="relative">
+          <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+          <Input placeholder="Find your byte..." className="pl-10 pr-4 py-2 w-full" />
+        </div>
+      </div>
+      <div className="flex items-center">
+        <ModeToggle />
+      </div>
+    </nav>
+  );
 }

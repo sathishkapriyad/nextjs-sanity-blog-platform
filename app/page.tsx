@@ -19,7 +19,10 @@ async function getData() {
         titleImage,
         tags,
         author,
-        authorImage,
+        "authorImage": authorImage.asset->url,
+        publishedAt,
+        categories[]->{title},
+        featured,
       }`;
         const data = await client.fetch(query);
         return data;
@@ -55,8 +58,9 @@ export default async function Home() {
     // const sidebarAdverts = advertdata.filter(ad => ad.adposition === 'sidebar');
     // const footerAdverts = advertdata.filter(ad => ad.adposition === 'footer');
 
+    const featuredPosts = data.filter(post => post.featured);
 
-    console.log('Data', data);
+
 
     return (
         <>
@@ -76,6 +80,39 @@ export default async function Home() {
                 ))}
 
             </div> */}
+
+
+            <div className="my-12 grid grid-cols-1 md:grid-cols-3 gap-4">
+                {featuredPosts.map((post, idx) => (
+                    // Check if it's the first post, which is the featured post
+                    <Card key={idx} className={idx === 0 ? "md:col-span-2" : ""}>
+                        <Image
+                            src={urlFor(post.titleImage).url()}
+                            alt="image"
+                            width={700} // Adjust width and height as necessary
+                            height={400} // Adjust width and height as necessary
+                            className="rounded-t-lg w-full object-cover h-[200px] md:h-[400px]"
+                        />
+                        <CardContent className="mt-5">
+                            <h3 className="text-xl md:text-2xl font-bold">{post.title}</h3>
+                            <p className="line-clamp-3 text-sm mt-2 text-gray-600">{post.smallDescription}</p>
+                            <Link href={`/blog/${post.currentSlug}`} className="flex items-center mt-4 text-sm font-semibold">
+                                Read More <ArrowRight className="ml-2 h-5 w-5" />
+                            </Link>
+                            <div className="mt-4">
+                                {post.tags.map((tag, tagIdx) => (
+                                    <Link key={tagIdx} href={`/tags/${tag}`} passHref>
+                                        <span className={`${badgeVariants({ variant: "outline" })} mx-2 my-1 cursor-pointer inline-block`}>{tag}</span>
+                                    </Link>
+                                ))}
+                            </div>
+                        </CardContent>
+                    </Card>
+                ))}
+            </div>
+
+
+
             <div className="grid grid-cols-1  md:grid-cols-3 mt-5 gap-5">
 
                 {data.map((post, idx) => (
@@ -94,11 +131,22 @@ export default async function Home() {
                                 {post.smallDescription}
                             </p>
                             <Link href={`/blog/${post.currentSlug}`} className="flex items-center mt-4 text-sm font-semibold">
-                            Read More <ArrowRight className="h-5 w-6" /> 
-                              </Link>
+                                Read More <ArrowRight className="h-5 w-6" />
+                            </Link>
 
-                            
-                            <Link className={`${badgeVariants({ variant: "outline" })} mt-4 mb-4`} href={`/tags/${post.tags}`}>{post.tags}</Link>
+
+                            {Array.isArray(post.tags) ? (
+                                post.tags.map((tag, tagIdx) => (
+                                    <Link key={tagIdx} href={`/tags/${tag}`} className={`${badgeVariants({ variant: "outline" })} mx-2 my-1 cursor-pointer`}>
+                                        {tag}
+                                    </Link>
+                                ))
+                            ) : post.tags ? (
+                                <Link href={`/tags/${post.tags}`} className={`${badgeVariants({ variant: "outline" })} mx-2 my-1 cursor-pointer`}>
+                                    {post.tags}
+                                </Link>
+                            ) : null}
+
 
                         </CardContent>
                     </Card>
