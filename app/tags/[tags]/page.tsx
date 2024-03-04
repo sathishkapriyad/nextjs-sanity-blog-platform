@@ -1,4 +1,4 @@
-import { fullBlog } from "@/app/lib/interface";
+import { BlogPost } from "@/app/lib/interface";
 import { client, urlFor } from "@/app/lib/sanity";
 import { PortableText } from "@portabletext/react";
 import Image from "next/image";
@@ -39,7 +39,7 @@ export default async function BlogsByTag({
 }) {
     // Assuming tags are passed as a string, you may need to decode or process them if they're in a different format
     const tag = params.tags;
-    const data: fullBlog[] = await getDataByTags(tag);
+    const data: BlogPost[] = await getDataByTags(tag);
 
     if (!data) {
         return <div>Loading...</div>;
