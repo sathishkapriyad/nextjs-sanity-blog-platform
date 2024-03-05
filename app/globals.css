@@ -57,6 +57,11 @@
   width: 100%; /* Stretch container to fill available space */
 }
 
+/* In your CSS file */
+.aside {
+  /* ... other styles */
+  transition: transform 0.8s ease-in-out;
+}
 
  
 @layer base {
