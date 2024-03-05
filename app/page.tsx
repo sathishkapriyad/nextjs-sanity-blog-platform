@@ -225,7 +225,7 @@ export default  function Home() {
                 ))}
             </div>
 
-            <div className="w-full flex justify-center mt-10">
+            <div className="w-full flex justify-center mt-10 mb-10">
             {hasMore && (
                 <div>
                     <Button variant="outline" onClick={loadMore} disabled={loading}>
