@@ -34,9 +34,6 @@ export default function Navbar() {
             <span className="ml-5 text-gray-800 dark:text-gray-300 text-sm cursor-pointer">Latest Stories</span>
           </Link>
           <Link href="/">
-            <span className="ml-5 text-gray-800 dark:text-gray-300 text-sm cursor-pointer">Latest Stories</span>
-          </Link>
-          <Link href="/">
             <span className="ml-5 text-gray-800 dark:text-gray-300 text-sm cursor-pointer">Product Reviews</span>
           </Link>
           <Link href="/">
@@ -74,9 +71,6 @@ export default function Navbar() {
 
               {/* Sidebar content */}
               <nav className="flex flex-col p-4"> 
-                <Link href="/" className="py-3">
-                  <span className="py-2 text-gray-800 dark:text-gray-300 cursor-pointer">Latest Stories</span>
-                </Link>
                 <Link href="/" className="py-3">
                   <span className="py-2 text-gray-800 dark:text-gray-300 cursor-pointer">Latest Stories</span>
                 </Link>
