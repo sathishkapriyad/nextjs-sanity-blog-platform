@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { badgeVariants } from "@/components/ui/badge"
-import { ArrowBigRight, ArrowRight, ArrowRightCircle, PlusCircle, Space } from "lucide-react";
+import { ArrowBigRight, ArrowRight, ArrowRightCircle, ChevronRight, PlusCircle, Space } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
@@ -187,14 +187,15 @@ export default  function Home() {
                             <CarouselItem key={idx} className="pl-1 p-0 md:basis-1/2 lg:basis-1/6">
                                 <div className="p-1">
                                     <Card>
-                                        <CardContent className="flex  items-center justify-center p-2">
-                                        <PlusCircle className="mr-5" color="#2F73E8"/> {post.categories && post.categories.length > 0 ? (
-                                                <span className="text-md font-semibold">
+                                        <CardContent className="flex  items-center justify-evenly p-2">
+                                         {post.categories && post.categories.length > 0 ? (
+                                                <span className="text-md ">
                                                     {post.categories[0].title}
                                                 </span>
                                             ) : (
                                                 <span className="text-md font-semibold">No Category</span>
                                             )}
+                                            <ChevronRight size={16} color="#2f73e8"/>
 
                                         </CardContent>
                                     </Card>
