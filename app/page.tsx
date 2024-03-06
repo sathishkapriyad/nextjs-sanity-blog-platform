@@ -148,7 +148,7 @@ export default  function Home() {
                             </h3>
                             <div className="card-tags">
                             {post.tags.map((tag, tagIdx) => (
-                                <Link key={tagIdx} href={`/tags/${tag}`} passHref>
+                                <Link key={tagIdx} href={`/tags/${tag}`} passHref className="mr-2">
                                 <span className={`${badgeVariants({ variant: "outline" })} mx-2 my-1 cursor-pointer inline-block uppercase`}>{tag}</span>
                                 </Link>
                             ))}
