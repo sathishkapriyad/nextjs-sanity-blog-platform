@@ -63,6 +63,16 @@
   transition: transform 0.8s ease-in-out;
 }
 
+.card-tags {
+  display: flex;
+  margin-bottom: 1rem; 
+}
+
+.card-tags span {
+  text-transform: uppercase; 
+  margin: 0;
+}
+
  
 @layer base {
   * {

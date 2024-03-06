@@ -60,7 +60,7 @@ export default function Navbar() {
         {/* Sidebar (for mobile) */}
         {isMenuOpen && (
           <div className="fixed inset-0 z-40 flex bg-black bg-opacity-50 md:hidden">
-            <aside className={`relative w-64 h-full bg-white transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+            <aside className={`relative w-64 h-full bg-white transition-all duration-300 ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
               {/* Close icon */}
               <button
                 className="absolute top-0 right-0 p-4"

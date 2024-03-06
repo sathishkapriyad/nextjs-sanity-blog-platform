@@ -7,9 +7,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { badgeVariants } from "@/components/ui/badge"
-import { ArrowBigRight, ArrowRight, Space } from "lucide-react";
+import { ArrowBigRight, ArrowRight, ArrowRightCircle, Space } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { useEffect, useState } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import { format } from 'date-fns'; 
 
 export const revalidate = 30; // revalidate at most 30 seconds
 
@@ -131,29 +133,48 @@ export default  function Home() {
             <div className="my-12 grid grid-cols-1 md:grid-cols-4 gap-4">
                 {featuredPosts.map((post, idx) => (
                     // Check if it's the first post, which is the featured post
-                    <Card key={idx} className={idx === 0 ? "md:col-span-2" : ""}>
+                    
+                    <Card key={idx} className={idx === 0 ? "md:col-span-2 transition duration-500 hover:scale-105" : "transition duration-500 hover:scale-105"}>
                         <Image
                             src={urlFor(post.titleImage).url()}
                             alt="image"
-                            width={700} // Adjust width and height as necessary
-                            height={400} // Adjust width and height as necessary
+                            width={700}
+                            height={400}
                             className="rounded-t-lg w-full object-contain h-[200px] md:h-[400px]"
                         />
-                        <CardContent className="mt-5">
+                        <CardContent className="flex flex-col space-y-4 p-4">
+                            <h3 className="text-xl md:text-lg  uppercase">
+                            {format(new Date(post.publishedAt), 'MMM dd')}
+                            </h3>
+                            <div className="card-tags">
+                            {post.tags.map((tag, tagIdx) => (
+                                <Link key={tagIdx} href={`/tags/${tag}`} passHref>
+                                <span className={`${badgeVariants({ variant: "outline" })} mx-2 my-1 cursor-pointer inline-block uppercase`}>{tag}</span>
+                                </Link>
+                            ))}
+                            </div>
                             <h3 className="text-xl md:text-2xl font-bold">{post.title}</h3>
-                            <p className="line-clamp-3 text-sm mt-2 text-gray-600">{post.smallDescription}</p>
-                            <Link href={`/blog/${post.currentSlug}`} className="flex items-center mt-4 text-sm font-semibold">
-                                Read More <ArrowRight className="ml-2 h-5 w-5" />
-                            </Link>
-                            <div className="mt-4 flex-1 text-right">
-                                {post.tags.map((tag, tagIdx) => (
-                                    <Link key={tagIdx} href={`/tags/${tag}`} passHref>
-                                        <span className={`${badgeVariants({ variant: "outline" })} mx-2 my-1 cursor-pointer inline-block`}>{tag}</span>
-                                    </Link>
-                                ))}
+                            <p className="text-sm text-gray-600 line-clamp-3">{post.smallDescription}</p>
+                            <div className="flex items-center justify-between mt-4">
+                            <div className="flex items-center space-x-4"> 
+                                <img
+                                className="inline-block h-6 w-6 rounded-full ring-2 ring-white"
+                                src={post.authorImage ? urlFor(post.authorImage).url() : "https://github.com/shadcn.png"}
+                                alt=""
+                                />
+                                <Link className="text-sm" href={""}>
+                                {post.author}
+                                </Link>
+                            </div>
+                            <div> 
+                                <Link href={`/blog/${post.currentSlug}`} className="flex items-center text-sm text-blue-500 rounded-full px-4">
+                                Read More <ArrowRightCircle className="ml-2 h-5 w-5 text-blue-500" />
+                                </Link>
+                            </div>
                             </div>
                         </CardContent>
-                    </Card>
+                        </Card>
+
                 ))}
             </div>
 
@@ -190,7 +211,7 @@ export default  function Home() {
             <div className="grid grid-cols-1 md:grid-cols-3 mt-5 gap-5">
 
                 {posts.map((post, idx) => (
-                    <Card key={idx} className="flex flex-col md:flex-row">
+                    <Card key={idx} className="flex flex-col md:flex-row transition duration-500 hover:scale-105">
                         <Image
                             src={urlFor(post.titleImage).url()}
                             alt="image"
@@ -200,26 +221,29 @@ export default  function Home() {
                         />
 
                         <CardContent className="mt-5 flex-1 md:w-1/2 px-4 py-2">
+
+                        <div className="card-tags flex items-center"> {/* Container for tags */}
+                        {Array.isArray(post.tags) ? (
+                          post.tags.map((tag, tagIdx) => (
+                            <Link key={tagIdx} href={`/tags/${tag}`} className="mr-2">
+                              <span className={`${badgeVariants({ variant: "outline" })} mx-2 my-1  cursor-pointer inline-block uppercase`}>{tag}</span>
+                            </Link>
+                          ))
+                        ) : post.tags ? (
+                          <Link href={`/tags/${post.tags}`} className="mr-2">
+                           <span className={`${badgeVariants({ variant: "outline" })} mx-2 my-1  cursor-pointer inline-block uppercase`}> {post.tags}</span>
+                          </Link>
+                        ) : null}
+                      </div>
+
                             <h3 className="text-lg line-clamp-2 font-bold">{post.title}</h3>
                             <p className="line-clamp-3 text-sm mt-2 text-gray-600 dark:text-gray-300">
                                 {post.smallDescription}
                             </p>
-                            <Link href={`/blog/${post.currentSlug}`} className="flex items-center mt-4 text-sm font-semibold">
-                                Read More <ArrowRight className="h-5 w-6" />
+                            <Link href={`/blog/${post.currentSlug}`} className="flex items-center text-sm text-blue-500 mt-4 mb-4 text-sm font-semibold">
+                                Read More <ArrowRightCircle className="h-5 w-6 text-blue-500 ml-2" />
                             </Link>
-                            <div className="flex-1 text-right"> {/* Align tags to right */}
-                                {Array.isArray(post.tags) ? (
-                                    post.tags.map((tag, tagIdx) => (
-                                        <Link key={tagIdx} href={`/tags/${tag}`} className={`${badgeVariants({ variant: "outline" })} mx-2 my-1 cursor-pointer`}>
-                                            {tag}
-                                        </Link>
-                                    ))
-                                ) : post.tags ? (
-                                    <Link href={`/tags/${post.tags}`} className={`${badgeVariants({ variant: "outline" })} mx-2 my-1 cursor-pointer`}>
-                                        {post.tags}
-                                    </Link>
-                                ) : null}
-                            </div>
+                        
                         </CardContent>
                     </Card>
                 ))}
