@@ -153,7 +153,7 @@ export default  function Home() {
                                 </Link>
                             ))}
                             </div>
-                            <h3 className="text-xl md:text-2xl font-bold">{post.title}</h3>
+                            <h3 className="text-xl md:text-2xl ">{post.title}</h3>
                             <p className="text-sm text-gray-600 line-clamp-3">{post.smallDescription}</p>
                             <div className="flex items-center justify-between mt-4">
                             <div className="flex items-center space-x-4"> 
@@ -237,7 +237,7 @@ export default  function Home() {
                         ) : null}
                       </div>
 
-                            <h3 className="text-lg line-clamp-2 font-bold">{post.title}</h3>
+                            <h3 className="text-lg line-clamp-2 ">{post.title}</h3>
                             <p className="line-clamp-3 text-sm mt-2 text-gray-600 dark:text-gray-300">
                                 {post.smallDescription}
                             </p>
