@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { badgeVariants } from "@/components/ui/badge"
-import { ArrowBigRight, ArrowRight, ArrowRightCircle, Space } from "lucide-react";
+import { ArrowBigRight, ArrowRight, ArrowRightCircle, PlusCircle, Space } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
@@ -178,17 +178,17 @@ export default  function Home() {
                 ))}
             </div>
 
-            <div className="w-full pl-10 pr-10">
-                <h3 className="text-lg  text-gray-800 mt-8 mb-5 dark:text-gray-300">More topics</h3>
+            <div className=" pb-10 pl-10 pr-10">
+                <h3 className="text-2xl font-bold text-gray-800 mt-8 mb-5 dark:text-gray-300">More topics</h3>
 
-                <Carousel className="w-full ">
+                <Carousel className="w-full">
                     <CarouselContent className="-ml-1">
                         {posts.map((post, idx) => (
-                            <CarouselItem key={idx} className="pl-1 md:basis-1/2 lg:basis-1/6">
+                            <CarouselItem key={idx} className="pl-1 p-0 md:basis-1/2 lg:basis-1/6">
                                 <div className="p-1">
                                     <Card>
-                                        <CardContent className="flex aspect-square items-center justify-center p-6">
-                                            {post.categories && post.categories.length > 0 ? (
+                                        <CardContent className="flex  items-center justify-center p-2">
+                                        <PlusCircle className="mr-5" color="#2F73E8"/> {post.categories && post.categories.length > 0 ? (
                                                 <span className="text-md font-semibold">
                                                     {post.categories[0].title}
                                                 </span>
