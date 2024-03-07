@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { badgeVariants } from "@/components/ui/badge"
-import { ArrowBigRight, ArrowRight, ArrowRightCircle, ChevronRight, PlusCircle, Space } from "lucide-react";
+import { ArrowBigRight, ArrowRight, ArrowRightCircle, ChevronRight, Facebook, Instagram, PlusCircle, Space, Twitter } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
@@ -260,7 +260,6 @@ export default  function Home() {
                 </div>
             )}
             </div>
-
         </>
 
     );

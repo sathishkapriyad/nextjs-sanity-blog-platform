@@ -4,6 +4,8 @@ import "./globals.css";
 import { ThemeProvider } from "./components/theme-provider";
 import Navbar from "./components/Navbar";
 import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu"
+import Footer from "./components/Footer";
+
 
 
 
@@ -30,8 +32,11 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <Navbar/>
+            <main className="w-full mx-auto px-10">{children}</main>
+            <Footer/>
       
-        <main className="w-full mx-auto px-10">{children}</main>
+      
+       
       </ThemeProvider>
         </body>
     </html>
