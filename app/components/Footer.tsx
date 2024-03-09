@@ -6,7 +6,7 @@ import Link from 'next/dist/client/link';
 
 function Footer() {
   return (
-    <footer className="footer bg-gray-900 text-white py-8">
+    <footer className="footer bg-gray-900 text-white py-8 site-container">
     <div className="container flex flex-col md:flex-row justify-between items-center mx-auto px-4">
       <div className="social flex space-x-4 mt-4 md:mt-0">
       <Linkedin size={20} color="#333333" />

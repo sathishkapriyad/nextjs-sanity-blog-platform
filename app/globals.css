@@ -85,6 +85,10 @@
   display: flex; /* For horizontal layout */
   justify-content: space-between; /* Align left and right content */
   align-items: center; /* Vertically center content */
+  position: relative;
+  bottom: 0;
+  max-width: 100%;
+  width: 100%;
 }
 
 .footer-container {
@@ -112,6 +116,13 @@
 
 .copyright {
   /* Style the copyright text as needed */
+}
+
+.page-wrapper  {
+  display: flex;
+  min-height: 100vh;
+  max-height: 100px;
+  flex-direction: column;
 }
 
  
