@@ -186,8 +186,9 @@ export default  function Home() {
                         {posts.map((post, idx) => (
                             <CarouselItem key={idx} className="pl-1 p-0 md:basis-1/2 lg:basis-1/6">
                                 <div className="p-1">
+                                <Link href={`/categories/${post.categories[0].title}`} className="">
                                     <Card>
-                                        <CardContent className="flex  items-center justify-evenly p-2">
+                                        <CardContent className="flex  items-center justify-between p-2">
                                          {post.categories && post.categories.length > 0 ? (
                                                 <span className="text-md ">
                                                     {post.categories[0].title}
@@ -199,6 +200,7 @@ export default  function Home() {
 
                                         </CardContent>
                                     </Card>
+                                    </Link>
                                 </div>
                             </CarouselItem>
                         ))}

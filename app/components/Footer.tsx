@@ -25,9 +25,9 @@ function Footer() {
 
       <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 text-center md:text-left mt-4 md:mt-0">
         <div className="flex-1">
-          <a href="#" className="text-sm text-gray-500 hover:text-white">Privacy</a>
-          <a href="#" className="text-sm text-gray-500 hover:text-white ml-4">Terms</a>
-          <a href="#" className="text-sm text-gray-500 hover:text-white ml-4">About Byte Bridges</a>
+          <a href="#" className="text-sm text-gray-500 hover:text-black">Privacy</a>
+          <a href="#" className="text-sm text-gray-500 hover:text-black ml-4">Terms</a>
+          <a href="#" className="text-sm text-gray-500 hover:text-black ml-4">About Byte Bridges</a>
         </div>
         </div>
     </div>

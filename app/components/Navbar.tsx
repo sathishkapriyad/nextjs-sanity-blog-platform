@@ -1,14 +1,48 @@
 'use client'; 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ModeToggle } from './ModeToggle';
 import { Input } from '@/components/ui/input';
 import { MenuIcon, XIcon } from 'lucide-react';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { client } from '../lib/sanity';
+import SearchResults from '../components/SearchResults'; 
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]); 
+  const [allBlogPosts, setAllBlogPosts] = useState([]);
 
+  // Fetch blog posts on initial load
+  useEffect(() => {
+    const fetchData = async () => {
+      const query = '*[_type == "blog"]{ title, _id, slug, content }'; 
+      const posts = await client.fetch(query);
+      setAllBlogPosts(posts);
+    };
+    fetchData();
+  }, []);
+
+  // Search Logic
+  useEffect(() => {
+    const performSearch = async () => {
+      if (searchTerm) {
+        const query = `
+          *[_type == "blog" && 
+            (title match "${searchTerm}*" || content match "${searchTerm}*")]
+           { title, _id, slug } 
+        `;
+        const results = await client.fetch(query);
+        setSearchResults(results);
+      } else {
+        setSearchResults([]); // Clear results
+      }
+    };
+
+    performSearch(); 
+  }, [searchTerm]);
+    
   return (
     <nav className="sticky top-0 z-50 w-full flex items-center justify-between px-4 py-5 bg-white shadow-md">
       {/* Left Section: Logo & Links */}
@@ -50,10 +84,16 @@ export default function Navbar() {
       <div className="flex items-center ml-8 space-x-4"> 
         {/* Desktop Search Bar */}
         <div className="hidden md:flex">
-          <div className="relative">
-            <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-            <Input placeholder="Find an article..." className="pl-10 pr-4 py-2 w-full" />
-          </div>
+        <div className="relative">
+          <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+          <Input 
+            placeholder="Find an article..." 
+            className="pl-10 pr-4 py-2 w-full" 
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)} 
+          />
+          <SearchResults results={searchResults} searchTerm={searchTerm} />
+        </div>
         </div>
 
         {/* Mode Toggle */}
@@ -101,3 +141,7 @@ export default function Navbar() {
     </nav>
   );
 }
+function setSearchResults(results: any) {
+  throw new Error('Function not implemented.');
+}
+
